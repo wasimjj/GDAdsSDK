@@ -16,8 +16,8 @@ MonoBehaviour:
   AdMobBannerID: ca-app-pub-3940256099942544/6300978111
   AdMobInterstitialID: ca-app-pub-3940256099942544/1033173712
   AdMobRewardVideoID: ca-app-pub-3940256099942544/5224354917
-  AdmobPeriority: 2
+  AdmobPeriority: 1
   UnityAdNerworkId: 3246118
-  UnityAdPeriority: 1
+  UnityAdPeriority: 0
   AppLovinAdNetworkId: 0nvqW-sn9qSBLNAsrIWG40P1-TdtNLeO7TCeW2PftssCE033JZKNalPTH1QfN32VbF86HXn9OcLcdOgxy0JWli
-  ApplovinAdPeriority: 0
+  ApplovinAdPeriority: 2

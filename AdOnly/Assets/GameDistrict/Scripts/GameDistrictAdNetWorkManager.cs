@@ -10,7 +10,29 @@ using UnityEngine.Advertisements;
 public class GameDistrictAdNetWorkManager : MonoBehaviour
 {
     
-    public TextMeshProUGUI LogTextBox;
+    
+    protected static GameDistrictAdNetWorkManager mInstance
+    {
+        get;
+        set;
+    }
+    public static GameDistrictAdNetWorkManager Instance
+    {
+        get
+        {
+            if(mInstance == null)
+            {
+                mInstance = FindObjectOfType<GameDistrictAdNetWorkManager>();
+                if(mInstance == null)
+                {
+                    mInstance = new GameObject().AddComponent<GameDistrictAdNetWorkManager>();
+                }
+                DontDestroyOnLoad(mInstance.gameObject);
+                
+            }
+            return mInstance;
+        }
+    }
     public List<IGDAdNetWork> AdNetworks = new List<IGDAdNetWork>();
     protected UnityAdsNetwrok UnityAdsNetwrok ;
     protected AdMobNetwork AdMobNetwork ;
@@ -18,6 +40,17 @@ public class GameDistrictAdNetWorkManager : MonoBehaviour
 
 
     void Awake()
+    {
+        if(Instance != null && 
+           Instance != this
+        )
+        {
+            Destroy(gameObject); 
+        }
+       Inititialize();
+
+    }
+    public void Inititialize()
     {
         AdMobNetwork = gameObject.AddComponent<AdMobNetwork>() as AdMobNetwork;
         UnityAdsNetwrok = gameObject.AddComponent<UnityAdsNetwrok>() as UnityAdsNetwrok;
@@ -30,7 +63,6 @@ public class GameDistrictAdNetWorkManager : MonoBehaviour
         AdNetworks.Add(AdMobNetwork);
         AdNetworks.Add(UnityAdsNetwrok);
         AdNetworks.Add(AppLovinAdsNetwrok);
-
     }
     protected List<IGDAdNetWork> SortedNetwrokList
     {
@@ -78,45 +110,17 @@ public class GameDistrictAdNetWorkManager : MonoBehaviour
     {   
         AdMobNetwork.ShowBanner(SuccessCallback,FailedCallback,adPosition);
     }
-    //temp
-    public void ShowInterstitial()
-    {
-        ShowInterstitial((staus)=>
-        {
-            string Message = "Success call back here";
-            Debug.Log(Message);
-            LogTextBox.text = Message;
-        },(staus)=>
-        {
-            string Message = "Success call back here";
-            Debug.Log(Message);
-            LogTextBox.text = Message;
-        });
-    }
-    public void ShowRewardVideo()
-    {
-        ShowRewardVideo((staus)=>
-        {
-            string Message = "Success call back here";
-            Debug.Log(Message);
-            LogTextBox.text = Message;
-        },(staus)=>
-        {
-            string Message = "Success call back here";
-            Debug.Log(Message);
-            LogTextBox.text = Message;
-        });
-    }
+    
     public void ShowBanner()
     {
         ShowBanner(null,null,AdPosition.Top);
     }
-    protected void LogMessage(IGDAdNetWork netWork,string Message,string Message2 = "")
+    protected static void LogMessage(IGDAdNetWork netWork,string Message,string Message2 = "")
     {
         Debug.Log(Message+netWork.GetType().ToString()
             +" Priority:"+netWork.Priority+Message2);
     }
-    protected void LogSuccessCallback(bool status)
+    protected static void LogSuccessCallback(bool status)
     {
         Debug.Log("Success call back here");
     }

@@ -67,8 +67,8 @@ public class AppLovinAdsNetwrok : MonoBehaviour,IGDAdNetWork
     public void Inititialize(string netWorkID)
     {
         AppLovin.SetSdkKey(AdNetworkSettings.Instance.AppLovinAdNetworkId);
-        AppLovin.SetUnityAdListener(gameObject.name);//(FindObjectOfType<GameDistrictAdNetWorkManager>().name);
         AppLovin.InitializeSdk();
+        AppLovin.SetUnityAdListener(gameObject.name);
         AppLovin.PreloadInterstitial();
         AppLovin.LoadRewardedInterstitial();
     }

@@ -77,7 +77,10 @@ public class UnityAdsNetwrok : MonoBehaviour,IGDAdNetWork,IUnityAdsListener
         this.FailedCallback = FailedCallback;
         if(IsInterstitialAvailable())
         {
-            Advertisement.Show("video");
+            Advertisement.Show("video",new ShowOptions
+                {
+                    resultCallback = RewardVideoStatus
+                });
         }else
         {
             FailedCallback(true);
@@ -92,36 +95,40 @@ public class UnityAdsNetwrok : MonoBehaviour,IGDAdNetWork,IUnityAdsListener
         this.FailedCallback = FailedCallback;
         if(IsRewardVideoAvilable)
         {
-            Advertisement.Show("rewardedVideo");
+            Advertisement.Show("rewardedVideo",new ShowOptions
+                {
+                    resultCallback = RewardVideoStatus
+                }
+            );
         }
     }
 
     void RewardVideoStatus(ShowResult showResult)
     {
-       Debug.Log("ShowResult:"+showResult.ToString());
-        // ShowResultStatus = showResult;
-        // switch(showResult)
-        // {
-        //     case ShowResult.Finished:
-        //         if(SuccessCallback != null)
-        //         {
-        //             SuccessCallback(true);
-        //         }
-        //         DestroyCallBacks();
+        Debug.Log("ShowResult:"+showResult.ToString());
+        ShowResultStatus = showResult;
+        switch(showResult)
+        {
+            case ShowResult.Finished:
+                if(SuccessCallback != null)
+                {
+                    SuccessCallback(true);
+                }
+                DestroyCallBacks();
 
-        //     break;
-        //     case ShowResult.Skipped:
-        //         //SuccessCallback(true);
-        //     break;
-        //     case ShowResult.Failed:
-        //         if(FailedCallback!=null)
-        //         {
-        //             FailedCallback(true);
-        //         }
-        //         DestroyCallBacks();
-        //     break;
+            break;
+            case ShowResult.Skipped:
+                //SuccessCallback(true);
+            break;
+            case ShowResult.Failed:
+                if(FailedCallback!=null)
+                {
+                    FailedCallback(true);
+                }
+                DestroyCallBacks();
+            break;
             
-        // }
+        }
      }
     protected void DestroyCallBacks()
     {
