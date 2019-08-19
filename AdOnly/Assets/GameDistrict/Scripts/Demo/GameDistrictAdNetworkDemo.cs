@@ -10,6 +10,7 @@ public class GameDistrictAdNetworkDemo : MonoBehaviour
     public Button BtnBanner;
     public Button BtnInrterstitial;
     public Button BtnRewardVideo;
+    public Button BtnSendFBEvent;
 
 
     void Start()
@@ -68,6 +69,10 @@ public class GameDistrictAdNetworkDemo : MonoBehaviour
                 }
             );
 
+        });
+        BtnSendFBEvent.onClick.AddListener(()=>
+        {
+            GameDistrictAdNetWorkManager.Instance.FBAppActivated();
         });
     }   
 }
