@@ -110,21 +110,5 @@ public class AdNetworkSettingsEditor : Editor
 	}
     private void DoSetup() 
     {
-        // // check that Android SDK is there
-        // if (!HasAndroidSdk()) {
-        //     Debug.LogError("Android SDK not found.");
-        //     EditorUtility.DisplayDialog(sSdkNotFound,
-        //         sSdkNotFoundBlurb, sOk);
-        //     return;
-        // }
-
-        // // create needed directories
-        // EnsureDirExists("Assets/Plugins");
-        // EnsureDirExists("Assets/Plugins/Android");
-
-        // // refresh assets, and we're done
-        // AssetDatabase.Refresh();
-        // EditorUtility.DisplayDialog(sSuccess,
-        //     sSetupComplete, sOk);
     }
 }

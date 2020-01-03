@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Facebook.Unity;
 using GoogleMobileAds.Api;
 using TMPro;
 using UnityEngine;
@@ -47,8 +48,8 @@ public class GameDistrictAdNetWorkManager : MonoBehaviour
         {
             Destroy(gameObject); 
         }
-       Inititialize();
-
+        Inititialize();
+        InititializeFB();
     }
     public void Inititialize()
     {
@@ -63,7 +64,9 @@ public class GameDistrictAdNetWorkManager : MonoBehaviour
         AdNetworks.Add(AdMobNetwork);
         AdNetworks.Add(UnityAdsNetwrok);
         AdNetworks.Add(AppLovinAdsNetwrok);
+       
     }
+    
     protected List<IGDAdNetWork> SortedNetwrokList
     {
         get
@@ -128,6 +131,45 @@ public class GameDistrictAdNetWorkManager : MonoBehaviour
     {
         Debug.Log("Failed call back here");
     }
+    //Facebook
+    public void InititializeFB()
+    {
+         
+        if (FB.IsInitialized) 
+        {
+            FB.ActivateApp();
+        } 
+        else 
+        {
+            FB.Init( () => 
+            {
+                FB.ActivateApp();
+            });
+        }
+    }
+    public void FBAppActivated()
+    {
+        Action appActivated = ()=>
+        {
+            FB.LogAppEvent(Facebook.Unity.AppEventName.ActivatedApp,null,new Dictionary<string, object>()
+            {
+                ["PiggyPanda"] = "Piggy panda game activated..."
+            });
+        };
+        if(FB.IsInitialized)
+        {
+            appActivated();
+        }else
+        {
+            FB.Init(()=>
+            {
+                FB.ActivateApp();
+                appActivated();
+            });
+        }
+        
+    }
+
 }
 
 public interface IGDAdNetWork
