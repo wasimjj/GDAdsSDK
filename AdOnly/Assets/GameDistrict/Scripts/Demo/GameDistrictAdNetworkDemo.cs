@@ -72,7 +72,7 @@ public class GameDistrictAdNetworkDemo : MonoBehaviour
         });
         BtnSendFBEvent.onClick.AddListener(()=>
         {
-            GameDistrictAdNetWorkManager.Instance.FBAppActivated();
+            GameDistrictFBAnalyticsManager.Instance.FBAppActivated();
         });
     }   
 }
